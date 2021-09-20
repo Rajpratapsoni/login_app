@@ -69,6 +69,7 @@ class AuthenticationService {
     //print(doc.data());
 
     return UserModel.fromMap(doc.data());
+
   }
 
   //5

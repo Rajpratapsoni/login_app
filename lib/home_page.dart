@@ -13,19 +13,31 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   FirebaseAuth auth = FirebaseAuth.instance;
-  final userRef = Firestore.instance.collection("users");
+  var auth1=FirebaseFirestore.instance.collection('users');
+  var userRef = Firestore.instance.collection("users").snapshots();
   UserModel _currentUser;
 
   String _uid;
   String _username;
   String _email;
 
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getCurrentUser();
+    //getData();
   }
+ /* Future<void> getData() async {
+    // Get docs from collection reference
+   // QuerySnapshot querySnapshot = await userRef.get();
+
+    // Get data from docs and convert map to List
+    final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+    print("my data is ${allData}");
+  }*/
 
   getCurrentUser() async {
     UserModel currentUser = await context
@@ -35,6 +47,7 @@ class _HomePageState extends State<HomePage> {
    setState(() {
      _currentUser = currentUser;
    });
+   print('all users is$userRef');
 
     print("${_currentUser.username}");
 
@@ -52,32 +65,27 @@ class _HomePageState extends State<HomePage> {
         title: Text("HomePage"),
         centerTitle: true,
       ),
-      body: _currentUser == null
-          ? Center(child: CircularProgressIndicator())
-          : Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "uid is ${_uid} , email is ${_email}, name is ${_username}",
-            textAlign: TextAlign.center,
-          ),
-          Center(
-            child: RaisedButton(
-              child: Text(
-                "Logout",
-                style: TextStyle(color: Colors.black, fontSize: 18),
-              ),
-              elevation: 8.0,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              color: Colors.orange,
-              onPressed: () {
-                context.read<AuthenticationService>().signOut();
-              },
-            ),
-          ),
-        ],
-      ),
+      body:StreamBuilder(
+        stream: userRef,
+        builder: (context,snapshot){
+          if(!snapshot.hasData)
+            return CircularProgressIndicator();
+          return ListView.builder(itemCount: snapshot.data.documents.length,
+          itemBuilder: (context,int index){
+            return Column(
+              children: [
+                SizedBox(height: 50,),
+                GestureDetector(
+                  onTap: (){
+                    print(index);
+                  },
+                    child: Text(snapshot.data.documents[index]["username"])),
+                SizedBox(height: 50,)
+              ],
+            );
+          },);
+        },
+      )
     );
   }
 }
