@@ -93,7 +93,6 @@ class _HomePageState extends State<HomePage> {
           : Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-  //
           Text(
             "uid is ${_uid} , email is ${_email}, name is ${_username}",
             textAlign: TextAlign.center,
