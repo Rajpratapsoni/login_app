@@ -32,7 +32,9 @@ class _HomePageState extends State<HomePage> {
         .read<AuthenticationService>()
         .getUserFromDB(uid: auth.currentUser.uid);
 
-    _currentUser = currentUser;
+   setState(() {
+     _currentUser = currentUser;
+   });
 
     print("${_currentUser.username}");
 
