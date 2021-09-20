@@ -50,6 +50,44 @@ class _HomePageState extends State<HomePage> {
         title: Text("HomePage"),
         centerTitle: true,
       ),
+      drawer:Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              accountEmail: Text("$_email\n$_uid"),
+              accountName: Text("$_username"),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+            ),
+            ListTile(
+              leading: new IconButton(
+                icon: new Icon(Icons.home, color: Colors.black),
+                onPressed: () => null,
+              ),
+              title: Text('Home'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HomePage()),
+                );
+              },
+            ),
+            ListTile(
+              leading: new IconButton(
+                icon: new Icon(Icons.settings, color: Colors.black),
+                onPressed: () => null,
+              ),
+              title: Text('Settings'),
+              onTap: () {
+
+              },
+            ),
+          ],
+        ),
+      ),
       body: _currentUser == null
           ? Center(child: CircularProgressIndicator())
           : Column(
