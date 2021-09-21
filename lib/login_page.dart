@@ -89,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
               Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
             ),
             border: OutlineInputBorder(),
-            labelText: "Contact No",
+            labelText: "Password",
             hintText: "Enter Valid Password",
             icon: Icon(
               Icons.lock,

@@ -29,8 +29,8 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         theme: ThemeData(
-            brightness: Brightness.dark,
-            primaryColor: Colors.green[400],
+            brightness: Brightness.light,
+            primaryColor: Colors.blue[400],
             accentColor: Colors.deepOrange[200]),
         home: AuthenticationWrapper(),
       ),
